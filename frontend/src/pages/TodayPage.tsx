@@ -239,7 +239,7 @@ function TodayPage() {
         <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-sm font-medium text-emerald-700">Fitness Tracker MVP</p>
-            <h1 className="mt-2 text-3xl font-semibold tracking-tight">今日记录</h1>
+            <h1 className="mobile-page-title mt-2">今日记录</h1>
             <p className="mt-2 text-sm text-slate-600">当前日期：{today}</p>
           </div>
         </div>
@@ -252,7 +252,7 @@ function TodayPage() {
             <h2 className="text-lg font-semibold">力量训练</h2>
             <p className="mt-1 text-sm text-slate-600">当前只验证训练会话，不录入动作和组。</p>
 
-            <form className="mt-4 grid gap-3 sm:grid-cols-2" onSubmit={handleCreateWorkoutSession}>
+            <form className="mobile-form-grid-two mt-4" onSubmit={handleCreateWorkoutSession}>
               <label className="grid gap-1 text-sm">
                 <span className="font-medium text-slate-700">训练标题</span>
                 <input
@@ -274,7 +274,7 @@ function TodayPage() {
                 />
               </label>
               <button
-                className="rounded-md bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-400 sm:col-span-2"
+                className="mobile-action-button rounded-md bg-slate-900 text-white hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-400 sm:col-span-2"
                 disabled={isSubmitting}
                 type="submit"
               >
@@ -287,20 +287,20 @@ function TodayPage() {
               {!isLoading && workoutSessions.length === 0 ? <p className="text-sm text-slate-600">今天还没有训练会话。</p> : null}
               <ul className="grid gap-3">
                 {workoutSessions.map((session) => (
-                  <li className="flex items-start justify-between gap-4 rounded-md border border-slate-200 p-3" key={session.id}>
-                    <div>
+                  <li className="mobile-list-row rounded-md border border-slate-200 p-3" key={session.id}>
+                    <div className="min-w-0">
                       <p className="font-medium">{getOptionalText(session.title, '未命名训练')}</p>
                       <p className="mt-1 text-sm text-slate-600">备注：{getOptionalText(session.notes, '无')}</p>
                     </div>
-                    <div className="flex shrink-0 items-center gap-2">
+                    <div className="mobile-action-stack shrink-0 sm:items-center">
                       <Link
-                        className="rounded-md border border-slate-200 px-3 py-1 text-sm font-medium text-slate-700 hover:bg-slate-50"
+                        className="mobile-action-link border border-slate-200 text-slate-700 hover:bg-slate-50"
                         to={`/workouts/${session.id}`}
                       >
                         进入训练详情
                       </Link>
                       <button
-                        className="rounded-md border border-red-200 px-3 py-1 text-sm font-medium text-red-700 hover:bg-red-50 disabled:cursor-not-allowed disabled:text-red-300"
+                        className="mobile-action-link border border-red-200 text-red-700 hover:bg-red-50 disabled:cursor-not-allowed disabled:text-red-300"
                         disabled={isSubmitting}
                         onClick={() => handleDeleteWorkoutSession(session.id)}
                         type="button"
@@ -317,7 +317,7 @@ function TodayPage() {
           <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
             <h2 className="text-lg font-semibold">有氧记录</h2>
 
-            <form className="mt-4 grid gap-3 sm:grid-cols-3" onSubmit={handleCreateCardioRecord}>
+            <form className="mobile-form-grid-three mt-4" onSubmit={handleCreateCardioRecord}>
               <label className="grid gap-1 text-sm">
                 <span className="font-medium text-slate-700">有氧类型</span>
                 <input
@@ -385,7 +385,7 @@ function TodayPage() {
                 />
               </label>
               <button
-                className="rounded-md bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-400 sm:col-span-3"
+                className="mobile-action-button rounded-md bg-slate-900 text-white hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-400 sm:col-span-2 lg:col-span-3"
                 disabled={isSubmitting}
                 type="submit"
               >
@@ -397,8 +397,8 @@ function TodayPage() {
               {!isLoading && cardioRecords.length === 0 ? <p className="text-sm text-slate-600">今天还没有有氧记录。</p> : null}
               <ul className="grid gap-3">
                 {cardioRecords.map((record) => (
-                  <li className="flex items-start justify-between gap-4 rounded-md border border-slate-200 p-3" key={record.id}>
-                    <div>
+                  <li className="mobile-list-row rounded-md border border-slate-200 p-3" key={record.id}>
+                    <div className="min-w-0">
                       <p className="font-medium">{record.activity_type}</p>
                       <p className="mt-1 text-sm text-slate-600">
                         {record.duration_minutes} 分钟
@@ -409,7 +409,7 @@ function TodayPage() {
                       {record.notes ? <p className="mt-1 text-sm text-slate-600">备注：{record.notes}</p> : null}
                     </div>
                     <button
-                      className="rounded-md border border-red-200 px-3 py-1 text-sm font-medium text-red-700 hover:bg-red-50 disabled:cursor-not-allowed disabled:text-red-300"
+                      className="mobile-action-link border border-red-200 text-red-700 hover:bg-red-50 disabled:cursor-not-allowed disabled:text-red-300"
                       disabled={isSubmitting}
                       onClick={() => handleDeleteCardioRecord(record.id)}
                       type="button"
@@ -426,7 +426,7 @@ function TodayPage() {
             <h2 className="text-lg font-semibold">饮食记录</h2>
             <p className="mt-1 text-sm text-slate-600">当前只验证餐次记录，不录入食物明细。</p>
 
-            <form className="mt-4 grid gap-3 sm:grid-cols-2" onSubmit={handleCreateMealRecord}>
+            <form className="mobile-form-grid-two mt-4" onSubmit={handleCreateMealRecord}>
               <label className="grid gap-1 text-sm">
                 <span className="font-medium text-slate-700">餐次</span>
                 <select
@@ -452,7 +452,7 @@ function TodayPage() {
                 />
               </label>
               <button
-                className="rounded-md bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-400 sm:col-span-2"
+                className="mobile-action-button rounded-md bg-slate-900 text-white hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-400 sm:col-span-2"
                 disabled={isSubmitting}
                 type="submit"
               >
@@ -464,20 +464,20 @@ function TodayPage() {
               {!isLoading && mealRecords.length === 0 ? <p className="text-sm text-slate-600">今天还没有餐次记录。</p> : null}
               <ul className="grid gap-3">
                 {mealRecords.map((record) => (
-                  <li className="flex items-start justify-between gap-4 rounded-md border border-slate-200 p-3" key={record.id}>
-                    <div>
+                  <li className="mobile-list-row rounded-md border border-slate-200 p-3" key={record.id}>
+                    <div className="min-w-0">
                       <p className="font-medium">{record.meal_type}</p>
                       <p className="mt-1 text-sm text-slate-600">备注：{getOptionalText(record.notes, '无')}</p>
                     </div>
-                    <div className="flex shrink-0 items-center gap-2">
+                    <div className="mobile-action-stack shrink-0 sm:items-center">
                       <Link
-                        className="rounded-md border border-slate-200 px-3 py-1 text-sm font-medium text-slate-700 hover:bg-slate-50"
+                        className="mobile-action-link border border-slate-200 text-slate-700 hover:bg-slate-50"
                         to={`/meals/${record.id}`}
                       >
                         进入食物明细
                       </Link>
                       <button
-                        className="rounded-md border border-red-200 px-3 py-1 text-sm font-medium text-red-700 hover:bg-red-50 disabled:cursor-not-allowed disabled:text-red-300"
+                        className="mobile-action-link border border-red-200 text-red-700 hover:bg-red-50 disabled:cursor-not-allowed disabled:text-red-300"
                         disabled={isSubmitting}
                         onClick={() => handleDeleteMealRecord(record.id)}
                         type="button"

@@ -218,17 +218,14 @@ function TemplateDetailPage() {
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-sm font-medium text-emerald-700">Fitness Tracker MVP</p>
-          <h1 className="mt-2 text-3xl font-semibold tracking-tight">
+          <h1 className="mobile-page-title mt-2">
             {template ? template.name : '模板详情'}
           </h1>
           <p className="mt-2 text-sm text-slate-600">
             描述：{template ? getOptionalText(template.description, '无') : '加载中...'}
           </p>
         </div>
-        <Link
-          className="inline-flex items-center justify-center rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-white"
-          to="/templates"
-        >
+        <Link className="mobile-action-link border border-slate-300 text-slate-700 hover:bg-white" to="/templates">
           返回模板列表
         </Link>
       </div>
@@ -238,7 +235,7 @@ function TemplateDetailPage() {
 
       <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
         <h2 className="text-lg font-semibold">添加模板动作</h2>
-        <form className="mt-4 grid gap-3 sm:grid-cols-2" onSubmit={handleCreateExercise}>
+        <form className="mobile-form-grid-two mt-4" onSubmit={handleCreateExercise}>
           <label className="grid gap-1 text-sm">
             <span className="font-medium text-slate-700">动作名称</span>
             <input
@@ -260,7 +257,7 @@ function TemplateDetailPage() {
             />
           </label>
           <button
-            className="rounded-md bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-400 sm:col-span-2"
+            className="mobile-action-button rounded-md bg-slate-900 text-white hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-400 sm:col-span-2"
             disabled={isSubmitting}
             type="submit"
           >
@@ -282,7 +279,7 @@ function TemplateDetailPage() {
             const setForm = setFormsByExerciseId[exercise.id] ?? createEmptySetForm()
 
             return (
-              <article className="rounded-md border border-slate-200 p-4" key={exercise.id}>
+              <article className="overflow-hidden rounded-md border border-slate-200 p-4" key={exercise.id}>
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                   <div>
                     <h3 className="font-semibold">{exercise.exercise_name_snapshot}</h3>
@@ -291,7 +288,7 @@ function TemplateDetailPage() {
                     </p>
                   </div>
                   <button
-                    className="rounded-md border border-red-200 px-3 py-1 text-sm font-medium text-red-700 hover:bg-red-50 disabled:cursor-not-allowed disabled:text-red-300"
+                    className="mobile-action-link border border-red-200 text-red-700 hover:bg-red-50 disabled:cursor-not-allowed disabled:text-red-300"
                     disabled={isSubmitting}
                     onClick={() => handleDeleteExercise(exercise.id)}
                     type="button"
@@ -305,10 +302,7 @@ function TemplateDetailPage() {
                   {sets.length === 0 ? <p className="mt-2 text-sm text-slate-600">还没有目标组。</p> : null}
                   <ul className="mt-2 grid gap-2">
                     {sets.map((set) => (
-                      <li
-                        className="flex flex-col gap-2 rounded-md bg-slate-50 px-3 py-2 sm:flex-row sm:items-center sm:justify-between"
-                        key={set.id}
-                      >
+                      <li className="mobile-list-row rounded-md bg-slate-50 px-3 py-2" key={set.id}>
                         <span className="text-sm text-slate-700">
                           第 {set.set_number} 组：目标 {set.target_weight_kg ?? '-'} kg x{' '}
                           {set.target_reps ?? '-'} 次
@@ -316,7 +310,7 @@ function TemplateDetailPage() {
                           {set.notes ? `，备注：${set.notes}` : ''}
                         </span>
                         <button
-                          className="self-start rounded-md border border-red-200 px-3 py-1 text-sm font-medium text-red-700 hover:bg-red-50 disabled:cursor-not-allowed disabled:text-red-300 sm:self-auto"
+                          className="mobile-action-link border border-red-200 text-red-700 hover:bg-red-50 disabled:cursor-not-allowed disabled:text-red-300"
                           disabled={isSubmitting}
                           onClick={() => handleDeleteSet(set.id)}
                           type="button"
@@ -328,10 +322,7 @@ function TemplateDetailPage() {
                   </ul>
                 </div>
 
-                <form
-                  className="mt-4 grid gap-3 sm:grid-cols-4"
-                  onSubmit={(event) => handleCreateSet(event, exercise.id)}
-                >
+                <form className="mobile-form-grid-four mt-4" onSubmit={(event) => handleCreateSet(event, exercise.id)}>
                   <label className="grid gap-1 text-sm">
                     <span className="font-medium text-slate-700">目标重量 kg</span>
                     <input
@@ -358,7 +349,7 @@ function TemplateDetailPage() {
                       value={setForm.targetReps}
                     />
                   </label>
-                  <label className="flex items-center gap-2 text-sm sm:pt-6">
+                  <label className="flex min-h-11 items-center gap-2 rounded-md border border-slate-300 px-3 py-2 text-sm">
                     <input
                       checked={setForm.isWarmup}
                       className="h-4 w-4 rounded border-slate-300"
@@ -378,7 +369,7 @@ function TemplateDetailPage() {
                     />
                   </label>
                   <button
-                    className="rounded-md bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-400 sm:col-span-4"
+                    className="mobile-action-button rounded-md bg-slate-900 text-white hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-400 sm:col-span-2 lg:col-span-4"
                     disabled={isSubmitting}
                     type="submit"
                   >

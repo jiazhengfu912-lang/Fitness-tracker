@@ -71,7 +71,7 @@ function AppNav() {
         return (
           <Link
             aria-current={isActive ? 'page' : undefined}
-            className={`rounded-md px-3 py-2 text-sm font-medium transition ${
+            className={`inline-flex min-h-11 min-w-0 flex-1 basis-[calc(50%-0.25rem)] items-center justify-center rounded-md px-3 py-2 text-center text-sm font-medium leading-5 transition sm:basis-auto sm:flex-none ${
               isActive
                 ? 'bg-slate-900 text-white'
                 : 'border border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50'

@@ -110,13 +110,10 @@ function TemplatesPage() {
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-sm font-medium text-emerald-700">Fitness Tracker MVP</p>
-          <h1 className="mt-2 text-3xl font-semibold tracking-tight">训练模板</h1>
+          <h1 className="mobile-page-title mt-2">训练模板</h1>
           <p className="mt-2 text-sm text-slate-600">管理常用训练模板，并一键套用到今天的训练会话。</p>
         </div>
-        <Link
-          className="inline-flex items-center justify-center rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-white"
-          to="/today"
-        >
+        <Link className="mobile-action-link border border-slate-300 text-slate-700 hover:bg-white" to="/today">
           返回今日记录
         </Link>
       </div>
@@ -126,7 +123,7 @@ function TemplatesPage() {
 
       <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
         <h2 className="text-lg font-semibold">创建训练模板</h2>
-        <form className="mt-4 grid gap-3 sm:grid-cols-2" onSubmit={handleCreateTemplate}>
+        <form className="mobile-form-grid-two mt-4" onSubmit={handleCreateTemplate}>
           <label className="grid gap-1 text-sm">
             <span className="font-medium text-slate-700">模板名称</span>
             <input
@@ -148,7 +145,7 @@ function TemplatesPage() {
             />
           </label>
           <button
-            className="rounded-md bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-400 sm:col-span-2"
+            className="mobile-action-button rounded-md bg-slate-900 text-white hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-400 sm:col-span-2"
             disabled={isSubmitting}
             type="submit"
           >
@@ -176,15 +173,15 @@ function TemplatesPage() {
                   描述：{getOptionalText(template.description, '无')}
                 </p>
               </div>
-              <div className="flex flex-wrap gap-2">
+              <div className="mobile-action-stack">
                 <Link
-                  className="rounded-md border border-slate-200 px-3 py-1 text-sm font-medium text-slate-700 hover:bg-slate-50"
+                  className="mobile-action-link border border-slate-200 text-slate-700 hover:bg-slate-50"
                   to={`/templates/${template.id}`}
                 >
                   进入模板详情
                 </Link>
                 <button
-                  className="rounded-md bg-emerald-700 px-3 py-1 text-sm font-medium text-white hover:bg-emerald-600 disabled:cursor-not-allowed disabled:bg-emerald-300"
+                  className="mobile-action-link bg-emerald-700 text-white hover:bg-emerald-600 disabled:cursor-not-allowed disabled:bg-emerald-300"
                   disabled={isSubmitting}
                   onClick={() => handleApplyTemplate(template.id)}
                   type="button"
@@ -192,7 +189,7 @@ function TemplatesPage() {
                   套用到今日
                 </button>
                 <button
-                  className="rounded-md border border-red-200 px-3 py-1 text-sm font-medium text-red-700 hover:bg-red-50 disabled:cursor-not-allowed disabled:text-red-300"
+                  className="mobile-action-link border border-red-200 text-red-700 hover:bg-red-50 disabled:cursor-not-allowed disabled:text-red-300"
                   disabled={isSubmitting}
                   onClick={() => handleDeleteTemplate(template.id)}
                   type="button"

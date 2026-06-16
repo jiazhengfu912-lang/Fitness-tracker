@@ -1,17 +1,24 @@
 @import "tailwindcss";
 
 @layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
   html,
   body,
   #root {
     min-height: 100%;
+    overflow-x: hidden;
   }
 
   body {
     margin: 0;
-    overflow-x: hidden;
     background: #f8fafc;
     color: #0f172a;
+    line-height: 1.5;
   }
 
   input,
@@ -24,6 +31,71 @@
   input,
   select,
   textarea {
+    width: 100%;
     max-width: 100%;
+    min-width: 0;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  img,
+  svg,
+  canvas,
+  video {
+    display: block;
+    max-width: 100%;
+  }
+
+  p,
+  span,
+  a,
+  h1,
+  h2,
+  h3,
+  h4,
+  dt,
+  dd,
+  li {
+    overflow-wrap: anywhere;
+  }
+
+  button {
+    touch-action: manipulation;
+  }
+}
+
+@layer components {
+  .mobile-page-title {
+    @apply text-2xl font-semibold tracking-tight sm:text-3xl;
+  }
+
+  .mobile-action-stack {
+    @apply flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:flex-wrap;
+  }
+
+  .mobile-action-link {
+    @apply inline-flex min-h-11 w-full items-center justify-center rounded-md px-4 py-2 text-center text-sm font-medium sm:w-auto;
+  }
+
+  .mobile-action-button {
+    @apply inline-flex min-h-11 w-full items-center justify-center rounded-md px-4 py-2 text-center text-sm font-semibold sm:w-auto;
+  }
+
+  .mobile-list-row {
+    @apply flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between;
+  }
+
+  .mobile-form-grid-two {
+    @apply grid gap-3 sm:grid-cols-2;
+  }
+
+  .mobile-form-grid-three {
+    @apply grid gap-3 sm:grid-cols-2 lg:grid-cols-3;
+  }
+
+  .mobile-form-grid-four {
+    @apply grid gap-3 sm:grid-cols-2 lg:grid-cols-4;
   }
 }

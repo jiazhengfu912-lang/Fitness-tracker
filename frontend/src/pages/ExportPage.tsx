@@ -48,15 +48,12 @@ function ExportPage() {
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-sm font-medium text-emerald-700">Fitness Tracker MVP</p>
-          <h1 className="mt-2 text-3xl font-semibold tracking-tight">数据导出</h1>
+          <h1 className="mobile-page-title mt-2">数据导出</h1>
           <p className="mt-2 text-sm text-slate-600">
             导出当前登录用户的训练、有氧、饮食和体重数据，不包含任何 API Key 或 Supabase 配置。
           </p>
         </div>
-        <Link
-          className="inline-flex items-center justify-center rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-white"
-          to="/"
-        >
+        <Link className="mobile-action-link border border-slate-300 text-slate-700 hover:bg-white" to="/">
           返回仪表盘
         </Link>
       </div>
@@ -82,7 +79,7 @@ function ExportPage() {
 
               return (
                 <button
-                  className={`rounded-md px-4 py-2 text-sm font-semibold ${
+                  className={`min-h-11 rounded-md px-4 py-2 text-sm font-semibold ${
                     isActive
                       ? 'bg-slate-900 text-white'
                       : 'border border-slate-300 bg-white text-slate-700 hover:bg-slate-50'
@@ -104,17 +101,17 @@ function ExportPage() {
           </p>
         </div>
 
-        <div className="mt-6 flex flex-wrap gap-3">
-          <button
-            className="rounded-md bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-400"
-            disabled={isExporting}
-            onClick={() => handleExport('json')}
-            type="button"
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <button
+            className="mobile-action-button rounded-md bg-slate-900 text-white hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-400"
+              disabled={isExporting}
+              onClick={() => handleExport('json')}
+              type="button"
           >
             导出 JSON
           </button>
           <button
-            className="rounded-md border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:text-slate-400"
+            className="mobile-action-button border border-slate-300 text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:text-slate-400"
             disabled={isExporting}
             onClick={() => handleExport('csv')}
             type="button"

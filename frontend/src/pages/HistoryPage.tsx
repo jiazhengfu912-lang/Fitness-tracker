@@ -97,7 +97,7 @@ function HistoryPage() {
         <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-sm font-medium text-emerald-700">Fitness Tracker MVP</p>
-            <h1 className="mt-2 text-3xl font-semibold tracking-tight">历史记录</h1>
+            <h1 className="mobile-page-title mt-2">历史记录</h1>
             <p className="mt-2 text-sm text-slate-600">当前选中日期：{selectedDate}</p>
           </div>
         </div>

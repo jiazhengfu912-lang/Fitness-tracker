@@ -61,20 +61,20 @@ function TrendsPage() {
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-sm font-medium text-emerald-700">Fitness Tracker MVP</p>
-          <h1 className="mt-2 text-3xl font-semibold tracking-tight">趋势图表</h1>
+          <h1 className="mobile-page-title mt-2">趋势图表</h1>
           <p className="mt-2 text-sm text-slate-600">
             统计范围：{dateRange.startDate} 至 {dateRange.endDate}
           </p>
         </div>
-        <div className="flex flex-wrap gap-2">
+        <div className="mobile-action-stack">
           <Link
-            className="inline-flex items-center justify-center rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-white"
+            className="mobile-action-link border border-slate-300 text-slate-700 hover:bg-white"
             to="/"
           >
             返回仪表盘
           </Link>
           <Link
-            className="inline-flex items-center justify-center rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-white"
+            className="mobile-action-link border border-slate-300 text-slate-700 hover:bg-white"
             to="/stats"
           >
             返回统计页
@@ -87,7 +87,7 @@ function TrendsPage() {
         <div className="mt-3 flex flex-wrap gap-2">
           {rangeOptions.map((option) => (
             <button
-              className={`rounded-md px-4 py-2 text-sm font-semibold ${
+              className={`min-h-11 rounded-md px-4 py-2 text-sm font-semibold ${
                 days === option
                   ? 'bg-slate-900 text-white'
                   : 'border border-slate-300 bg-white text-slate-700 hover:bg-slate-50'

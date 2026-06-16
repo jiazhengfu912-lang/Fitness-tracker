@@ -31,9 +31,9 @@ function StatCard({ title, items }: StatCardProps) {
       <h2 className="text-lg font-semibold">{title}</h2>
       <dl className="mt-4 grid gap-3 sm:grid-cols-2">
         {items.map((item) => (
-          <div className="rounded-md bg-slate-50 px-3 py-3" key={item.label}>
+          <div className="min-w-0 rounded-md bg-slate-50 px-3 py-3" key={item.label}>
             <dt className="text-sm text-slate-600">{item.label}</dt>
-            <dd className="mt-1 text-2xl font-semibold text-slate-950">{item.value}</dd>
+            <dd className="mt-1 text-xl font-semibold text-slate-950 sm:text-2xl">{item.value}</dd>
           </div>
         ))}
       </dl>
@@ -115,15 +115,12 @@ function StatsPage() {
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-sm font-medium text-emerald-700">Fitness Tracker MVP</p>
-          <h1 className="mt-2 text-3xl font-semibold tracking-tight">基础统计</h1>
+          <h1 className="mobile-page-title mt-2">基础统计</h1>
           <p className="mt-2 text-sm text-slate-600">
             统计范围：{dateRange.startDate} 至 {dateRange.endDate}
           </p>
         </div>
-        <Link
-          className="inline-flex items-center justify-center rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-white"
-          to="/trends"
-        >
+        <Link className="mobile-action-link border border-slate-300 text-slate-700 hover:bg-white" to="/trends">
           查看趋势图表
         </Link>
       </div>
@@ -133,7 +130,7 @@ function StatsPage() {
         <div className="mt-3 flex flex-wrap gap-2">
           {rangeOptions.map((option) => (
             <button
-              className={`rounded-md px-4 py-2 text-sm font-semibold ${
+              className={`min-h-11 rounded-md px-4 py-2 text-sm font-semibold ${
                 days === option
                   ? 'bg-slate-900 text-white'
                   : 'border border-slate-300 bg-white text-slate-700 hover:bg-slate-50'

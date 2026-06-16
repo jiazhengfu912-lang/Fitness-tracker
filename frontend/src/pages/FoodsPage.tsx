@@ -173,15 +173,12 @@ function FoodsPage() {
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-sm font-medium text-emerald-700">Fitness Tracker MVP</p>
-          <h1 className="mt-2 text-3xl font-semibold tracking-tight">食物库</h1>
+          <h1 className="mobile-page-title mt-2">食物库</h1>
           <p className="mt-2 text-sm text-slate-600">
             复用常吃食物的每 100g 营养数据，后续可直接带入餐次明细。
           </p>
         </div>
-        <Link
-          className="inline-flex items-center justify-center rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-white"
-          to="/"
-        >
+        <Link className="mobile-action-link border border-slate-300 text-slate-700 hover:bg-white" to="/">
           返回仪表盘
         </Link>
       </div>
@@ -207,7 +204,7 @@ function FoodsPage() {
           ) : null}
         </div>
 
-        <form className="mt-4 grid gap-3 sm:grid-cols-2" onSubmit={handleSubmit}>
+        <form className="mobile-form-grid-two mt-4" onSubmit={handleSubmit}>
           <label className="grid gap-1 text-sm sm:col-span-2">
             <span className="font-medium text-slate-700">食物名称</span>
             <input
@@ -268,7 +265,7 @@ function FoodsPage() {
           </label>
 
           <button
-            className="rounded-md bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-400 sm:col-span-2"
+            className="mobile-action-button rounded-md bg-slate-900 text-white hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-400 sm:col-span-2"
             disabled={isSubmitting}
             type="submit"
           >
@@ -281,7 +278,7 @@ function FoodsPage() {
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <h2 className="text-lg font-semibold">食物库列表</h2>
 
-          <form className="flex flex-col gap-2 sm:flex-row" onSubmit={handleSearch}>
+          <form className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row" onSubmit={handleSearch}>
             <input
               className="rounded-md border border-slate-300 px-3 py-2 text-sm"
               onChange={(event) => setSearchKeyword(event.target.value)}
@@ -291,13 +288,13 @@ function FoodsPage() {
             />
             <div className="flex gap-2">
               <button
-                className="rounded-md border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+                className="mobile-action-link border border-slate-300 px-3 text-slate-700 hover:bg-slate-50"
                 type="submit"
               >
                 搜索
               </button>
               <button
-                className="rounded-md border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+                className="mobile-action-link border border-slate-300 px-3 text-slate-700 hover:bg-slate-50"
                 onClick={handleResetSearch}
                 type="button"
               >
@@ -320,7 +317,7 @@ function FoodsPage() {
             >
               <div className="space-y-1">
                 <p className="font-medium text-slate-900">{food.name}</p>
-                <p className="text-sm text-slate-600">
+                <p className="text-sm leading-6 text-slate-600">
                   每 100g：{formatNullableNumber(food.calories_per_100g, 0)} kcal，蛋白质{' '}
                   {formatNullableNumber(food.protein_per_100g)} g，碳水{' '}
                   {formatNullableNumber(food.carbs_per_100g)} g，脂肪{' '}
@@ -328,16 +325,16 @@ function FoodsPage() {
                 </p>
               </div>
 
-              <div className="flex flex-wrap gap-2">
+              <div className="mobile-action-stack">
                 <button
-                  className="rounded-md border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+                  className="mobile-action-link border border-slate-300 text-slate-700 hover:bg-slate-50"
                   onClick={() => startEditing(food)}
                   type="button"
                 >
                   编辑
                 </button>
                 <button
-                  className="rounded-md border border-red-200 px-3 py-2 text-sm font-medium text-red-700 hover:bg-red-50"
+                  className="mobile-action-link border border-red-200 text-red-700 hover:bg-red-50"
                   disabled={isSubmitting}
                   onClick={() => handleDelete(food.id)}
                   type="button"

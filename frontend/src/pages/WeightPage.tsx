@@ -157,13 +157,10 @@ function WeightPage() {
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-sm font-medium text-emerald-700">Fitness Tracker MVP</p>
-          <h1 className="mt-2 text-3xl font-semibold tracking-tight">体重记录</h1>
+          <h1 className="mobile-page-title mt-2">体重记录</h1>
           <p className="mt-2 text-sm text-slate-600">按日期保存体重、体脂率和腰围。</p>
         </div>
-        <Link
-          className="inline-flex items-center justify-center rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-white"
-          to="/"
-        >
+        <Link className="mobile-action-link border border-slate-300 text-slate-700 hover:bg-white" to="/">
           返回仪表盘
         </Link>
       </div>
@@ -228,7 +225,7 @@ function WeightPage() {
               />
             </label>
             <button
-              className="rounded-md bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-400"
+              className="mobile-action-button rounded-md bg-slate-900 text-white hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-400"
               disabled={isSubmitting}
               type="submit"
             >
@@ -256,7 +253,7 @@ function WeightPage() {
                   <p className="mt-1 text-sm text-slate-600">备注：{getOptionalText(metric.notes, '无')}</p>
                 </div>
                 <button
-                  className="self-start rounded-md border border-red-200 px-3 py-1 text-sm font-medium text-red-700 hover:bg-red-50 disabled:cursor-not-allowed disabled:text-red-300 sm:self-auto"
+                  className="mobile-action-link border border-red-200 text-red-700 hover:bg-red-50 disabled:cursor-not-allowed disabled:text-red-300"
                   disabled={isSubmitting}
                   onClick={() => handleDeleteMetric(metric.id)}
                   type="button"

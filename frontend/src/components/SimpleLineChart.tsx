@@ -77,8 +77,8 @@ function SimpleLineChart({
   const height = 260
   const paddingTop = 20
   const paddingRight = 20
-  const paddingBottom = 36
-  const paddingLeft = 28
+  const paddingBottom = 40
+  const paddingLeft = 32
   const innerWidth = width - paddingLeft - paddingRight
   const innerHeight = height - paddingTop - paddingBottom
 
@@ -128,30 +128,24 @@ function SimpleLineChart({
   )
 
   return (
-    <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-        <div>
+    <section className="overflow-hidden rounded-lg border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+      <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+        <div className="min-w-0">
           <h2 className="text-lg font-semibold text-slate-900">{title}</h2>
           <p className="mt-1 text-sm text-slate-600">单位：{unit}</p>
         </div>
-        <dl className="grid grid-cols-3 gap-3 text-sm">
-          <div className="rounded-md bg-slate-50 px-3 py-2">
+        <dl className="grid grid-cols-1 gap-2 text-sm sm:grid-cols-3 md:min-w-[320px]">
+          <div className="min-w-0 rounded-md bg-slate-50 px-3 py-2">
             <dt className="text-slate-500">最大值</dt>
-            <dd className="mt-1 font-semibold text-slate-900">
-              {formatValue(maxValue, precision)}
-            </dd>
+            <dd className="mt-1 font-semibold text-slate-900">{formatValue(maxValue, precision)}</dd>
           </div>
-          <div className="rounded-md bg-slate-50 px-3 py-2">
+          <div className="min-w-0 rounded-md bg-slate-50 px-3 py-2">
             <dt className="text-slate-500">最小值</dt>
-            <dd className="mt-1 font-semibold text-slate-900">
-              {formatValue(minValue, precision)}
-            </dd>
+            <dd className="mt-1 font-semibold text-slate-900">{formatValue(minValue, precision)}</dd>
           </div>
-          <div className="rounded-md bg-slate-50 px-3 py-2">
+          <div className="min-w-0 rounded-md bg-slate-50 px-3 py-2">
             <dt className="text-slate-500">最近值</dt>
-            <dd className="mt-1 font-semibold text-slate-900">
-              {formatValue(latestValue, precision)}
-            </dd>
+            <dd className="mt-1 font-semibold text-slate-900">{formatValue(latestValue, precision)}</dd>
           </div>
         </dl>
       </div>
@@ -161,10 +155,11 @@ function SimpleLineChart({
           {emptyText}
         </div>
       ) : (
-        <div className="mt-5 overflow-hidden">
+        <div className="mt-5 overflow-hidden rounded-md border border-slate-100 bg-slate-50/30">
           <svg
             aria-label={title}
-            className="h-64 w-full"
+            className="block h-auto w-full"
+            preserveAspectRatio="xMidYMid meet"
             role="img"
             viewBox={`0 0 ${width} ${height}`}
           >
@@ -199,15 +194,7 @@ function SimpleLineChart({
             ))}
 
             {chartPoints.map((point, index) =>
-              point ? (
-                <circle
-                  cx={point.x}
-                  cy={point.y}
-                  fill="#0f766e"
-                  key={index}
-                  r="3.5"
-                />
-              ) : null,
+              point ? <circle cx={point.x} cy={point.y} fill="#0f766e" key={index} r="3.5" /> : null,
             )}
 
             {latestChartPoint ? (
