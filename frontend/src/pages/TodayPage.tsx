@@ -235,24 +235,12 @@ function TodayPage() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-50 px-4 py-8 text-slate-900">
-      <div className="mx-auto w-full max-w-5xl">
+    <>
         <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-sm font-medium text-emerald-700">Fitness Tracker MVP</p>
             <h1 className="mt-2 text-3xl font-semibold tracking-tight">今日记录</h1>
             <p className="mt-2 text-sm text-slate-600">当前日期：{today}</p>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <Link className="text-sm font-medium text-slate-700 hover:text-slate-950" to="/stats">
-              查看统计
-            </Link>
-            <Link className="text-sm font-medium text-slate-700 hover:text-slate-950" to="/history">
-              查看历史记录
-            </Link>
-            <Link className="text-sm font-medium text-slate-700 hover:text-slate-950" to="/">
-              返回仪表盘
-            </Link>
           </div>
         </div>
 
@@ -503,8 +491,7 @@ function TodayPage() {
             </div>
           </section>
         </div>
-      </div>
-    </main>
+    </>
   )
 }
 

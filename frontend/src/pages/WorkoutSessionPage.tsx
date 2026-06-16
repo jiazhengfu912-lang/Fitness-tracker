@@ -215,8 +215,7 @@ function WorkoutSessionPage() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-50 px-4 py-8 text-slate-900">
-      <div className="mx-auto w-full max-w-5xl">
+    <>
         <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-sm font-medium text-emerald-700">Fitness Tracker MVP</p>
@@ -382,8 +381,7 @@ function WorkoutSessionPage() {
             })}
           </div>
         </section>
-      </div>
-    </main>
+    </>
   )
 }
 

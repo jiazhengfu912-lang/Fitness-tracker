@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { getBasicStats, getDateRange } from '../lib/stats'
 import type { BasicStats, StatsDays } from '../lib/stats'
 
@@ -111,8 +110,7 @@ function StatsPage() {
   }, [days])
 
   return (
-    <main className="min-h-screen bg-slate-50 px-4 py-8 text-slate-900">
-      <div className="mx-auto w-full max-w-5xl">
+    <>
         <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-sm font-medium text-emerald-700">Fitness Tracker MVP</p>
@@ -120,26 +118,6 @@ function StatsPage() {
             <p className="mt-2 text-sm text-slate-600">
               统计范围：{dateRange.startDate} 至 {dateRange.endDate}
             </p>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <Link
-              className="rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-white"
-              to="/"
-            >
-              返回仪表盘
-            </Link>
-            <Link
-              className="rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-white"
-              to="/today"
-            >
-              返回今日记录
-            </Link>
-            <Link
-              className="rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-white"
-              to="/history"
-            >
-              查看历史记录
-            </Link>
           </div>
         </div>
 
@@ -171,8 +149,7 @@ function StatsPage() {
           <StatCard items={buildCardioItems(stats)} title="有氧统计" />
           <StatCard items={buildMealItems(stats)} title="饮食统计" />
         </div>
-      </div>
-    </main>
+    </>
   )
 }
 

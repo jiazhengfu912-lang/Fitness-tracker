@@ -1,6 +1,7 @@
 import type { Session } from '@supabase/supabase-js'
 import { useEffect, useState } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import AppLayout from '../components/AppLayout'
 import DashboardPage from '../pages/DashboardPage'
 import HistoryPage from '../pages/HistoryPage'
 import LoginPage from '../pages/LoginPage'
@@ -52,14 +53,37 @@ function AppRoutes() {
     <BrowserRouter>
       <Routes>
         <Route
-          element={session ? <DashboardPage user={session.user} /> : <Navigate replace to="/login" />}
+          element={
+            session ? (
+              <AppLayout userEmail={session.user.email}>
+                <DashboardPage user={session.user} />
+              </AppLayout>
+            ) : (
+              <Navigate replace to="/login" />
+            )
+          }
           path="/"
         />
-        <Route element={session ? <TodayPage /> : <Navigate replace to="/login" />} path="/today" />
-        <Route element={session ? <StatsPage /> : <Navigate replace to="/login" />} path="/stats" />
-        <Route element={session ? <HistoryPage /> : <Navigate replace to="/login" />} path="/history" />
-        <Route element={session ? <MealRecordPage /> : <Navigate replace to="/login" />} path="/meals/:mealRecordId" />
-        <Route element={session ? <WorkoutSessionPage /> : <Navigate replace to="/login" />} path="/workouts/:sessionId" />
+        <Route
+          element={session ? <AppLayout userEmail={session.user.email}><TodayPage /></AppLayout> : <Navigate replace to="/login" />}
+          path="/today"
+        />
+        <Route
+          element={session ? <AppLayout userEmail={session.user.email}><StatsPage /></AppLayout> : <Navigate replace to="/login" />}
+          path="/stats"
+        />
+        <Route
+          element={session ? <AppLayout userEmail={session.user.email}><HistoryPage /></AppLayout> : <Navigate replace to="/login" />}
+          path="/history"
+        />
+        <Route
+          element={session ? <AppLayout userEmail={session.user.email}><MealRecordPage /></AppLayout> : <Navigate replace to="/login" />}
+          path="/meals/:mealRecordId"
+        />
+        <Route
+          element={session ? <AppLayout userEmail={session.user.email}><WorkoutSessionPage /></AppLayout> : <Navigate replace to="/login" />}
+          path="/workouts/:sessionId"
+        />
         <Route element={session ? <Navigate replace to="/" /> : <LoginPage />} path="/login" />
         <Route element={session ? <Navigate replace to="/" /> : <RegisterPage />} path="/register" />
       </Routes>

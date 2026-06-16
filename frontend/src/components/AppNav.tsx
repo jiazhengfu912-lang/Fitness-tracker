@@ -1,0 +1,60 @@
+import { Link, useLocation } from 'react-router-dom'
+
+type NavItem = {
+  label: string
+  to: string
+  isActive: (pathname: string) => boolean
+}
+
+const navItems: NavItem[] = [
+  {
+    label: '仪表盘',
+    to: '/',
+    isActive: (pathname) => pathname === '/',
+  },
+  {
+    label: '今日记录',
+    to: '/today',
+    isActive: (pathname) =>
+      pathname === '/today' || pathname.startsWith('/workouts/') || pathname.startsWith('/meals/'),
+  },
+  {
+    label: '历史记录',
+    to: '/history',
+    isActive: (pathname) => pathname === '/history',
+  },
+  {
+    label: '数据统计',
+    to: '/stats',
+    isActive: (pathname) => pathname === '/stats',
+  },
+]
+
+function AppNav() {
+  const { pathname } = useLocation()
+
+  return (
+    <nav aria-label="主导航" className="mt-4 flex flex-wrap gap-2">
+      {navItems.map((item) => {
+        const isActive = item.isActive(pathname)
+
+        return (
+          <Link
+            aria-current={isActive ? 'page' : undefined}
+            className={`rounded-md px-3 py-2 text-sm font-medium transition ${
+              isActive
+                ? 'bg-slate-900 text-white'
+                : 'border border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50'
+            }`}
+            key={item.to}
+            to={item.to}
+          >
+            {item.label}
+          </Link>
+        )
+      })}
+    </nav>
+  )
+}
+
+export default AppNav

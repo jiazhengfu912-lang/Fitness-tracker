@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { getHistoryByDate, getTodayDateString } from '../lib/history'
 import type { HistoryByDate } from '../lib/history'
 import type {
@@ -94,27 +93,12 @@ function HistoryPage() {
     history.mealRecords.length === 0
 
   return (
-    <main className="min-h-screen bg-slate-50 px-4 py-8 text-slate-900">
-      <div className="mx-auto w-full max-w-5xl">
+    <>
         <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-sm font-medium text-emerald-700">Fitness Tracker MVP</p>
             <h1 className="mt-2 text-3xl font-semibold tracking-tight">历史记录</h1>
             <p className="mt-2 text-sm text-slate-600">当前选中日期：{selectedDate}</p>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <Link
-              className="rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-white"
-              to="/"
-            >
-              返回仪表盘
-            </Link>
-            <Link
-              className="rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-white"
-              to="/today"
-            >
-              返回今日记录
-            </Link>
           </div>
         </div>
 
@@ -240,8 +224,7 @@ function HistoryPage() {
             </div>
           </section>
         </div>
-      </div>
-    </main>
+    </>
   )
 }
 

@@ -1,8 +1,7 @@
 import type { User } from '@supabase/supabase-js'
 import { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { ensureMyPreferences, ensureMyProfile } from '../lib/profile'
-import { supabase } from '../lib/supabase'
 
 type DashboardPageProps = {
   user: User
@@ -27,13 +26,11 @@ function getErrorMessage(error: unknown) {
 }
 
 function DashboardPage({ user }: DashboardPageProps) {
-  const navigate = useNavigate()
   const [errorMessage, setErrorMessage] = useState('')
   const [profileStatus, setProfileStatus] = useState<InitializationStatus>('loading')
   const [preferencesStatus, setPreferencesStatus] = useState<InitializationStatus>('loading')
   const [profileErrorMessage, setProfileErrorMessage] = useState('')
   const [preferencesErrorMessage, setPreferencesErrorMessage] = useState('')
-  const [isSigningOut, setIsSigningOut] = useState(false)
 
   useEffect(() => {
     let isMounted = true
@@ -79,26 +76,9 @@ function DashboardPage({ user }: DashboardPageProps) {
     }
   }, [user.id])
 
-  async function handleSignOut() {
-    setErrorMessage('')
-    setIsSigningOut(true)
-
-    const { error } = await supabase.auth.signOut()
-
-    setIsSigningOut(false)
-
-    if (error) {
-      setErrorMessage(error.message)
-      return
-    }
-
-    navigate('/login', { replace: true })
-  }
-
   return (
-    <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
       <section className="mx-auto w-full max-w-3xl">
-        <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+        <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
           <p className="text-sm font-medium text-emerald-700">Fitness Tracker MVP</p>
           <h1 className="mt-4 text-3xl font-semibold tracking-tight">仪表盘</h1>
           <p className="mt-3 text-sm text-slate-600">当前登录用户邮箱：</p>
@@ -121,38 +101,30 @@ function DashboardPage({ user }: DashboardPageProps) {
           ) : null}
           {errorMessage ? <p className="mt-4 text-sm text-red-600">{errorMessage}</p> : null}
 
-          <Link
-            className="mt-6 inline-flex rounded-md bg-emerald-700 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-600"
-            to="/today"
-          >
-            进入今日记录
-          </Link>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link
+              className="inline-flex rounded-md bg-emerald-700 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-600"
+              to="/today"
+            >
+              进入今日记录
+            </Link>
 
-          <Link
-            className="ml-3 mt-6 inline-flex rounded-md border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
-            to="/stats"
-          >
-            查看统计
-          </Link>
+            <Link
+              className="inline-flex rounded-md border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+              to="/stats"
+            >
+              查看统计
+            </Link>
 
-          <Link
-            className="ml-3 mt-6 inline-flex rounded-md border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
-            to="/history"
-          >
-            查看历史记录
-          </Link>
-
-          <button
-            className="ml-3 mt-6 rounded-md bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-400"
-            disabled={isSigningOut}
-            onClick={handleSignOut}
-            type="button"
-          >
-            {isSigningOut ? '退出中...' : '退出登录'}
-          </button>
+            <Link
+              className="inline-flex rounded-md border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+              to="/history"
+            >
+              查看历史记录
+            </Link>
+          </div>
         </div>
       </section>
-    </main>
   )
 }
 
