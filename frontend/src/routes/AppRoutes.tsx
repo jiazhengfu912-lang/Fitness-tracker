@@ -5,6 +5,7 @@ import AppLayout from '../components/AppLayout'
 import { supabase } from '../lib/supabase'
 import DashboardPage from '../pages/DashboardPage'
 import ExportPage from '../pages/ExportPage'
+import FoodsPage from '../pages/FoodsPage'
 import GoalsPage from '../pages/GoalsPage'
 import HistoryPage from '../pages/HistoryPage'
 import LoginPage from '../pages/LoginPage'
@@ -105,6 +106,18 @@ function AppRoutes() {
             )
           }
           path="/templates/:templateId"
+        />
+        <Route
+          element={
+            session ? (
+              <AppLayout userEmail={session.user.email}>
+                <FoodsPage />
+              </AppLayout>
+            ) : (
+              <Navigate replace to="/login" />
+            )
+          }
+          path="/foods"
         />
         <Route
           element={

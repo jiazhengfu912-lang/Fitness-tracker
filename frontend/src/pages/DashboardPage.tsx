@@ -29,7 +29,6 @@ function getErrorMessage(error: unknown) {
 }
 
 function DashboardPage({ user }: DashboardPageProps) {
-  const [errorMessage, setErrorMessage] = useState('')
   const [profileStatus, setProfileStatus] = useState<InitializationStatus>('loading')
   const [preferencesStatus, setPreferencesStatus] = useState<InitializationStatus>('loading')
   const [profileErrorMessage, setProfileErrorMessage] = useState('')
@@ -39,7 +38,6 @@ function DashboardPage({ user }: DashboardPageProps) {
     let isMounted = true
 
     async function initializeUserData() {
-      setErrorMessage('')
       setProfileErrorMessage('')
       setPreferencesErrorMessage('')
       setProfileStatus('loading')
@@ -102,7 +100,6 @@ function DashboardPage({ user }: DashboardPageProps) {
         {preferencesErrorMessage ? (
           <p className="mt-2 text-sm text-red-600">{preferencesErrorMessage}</p>
         ) : null}
-        {errorMessage ? <p className="mt-4 text-sm text-red-600">{errorMessage}</p> : null}
 
         <div className="mt-6 flex flex-wrap gap-3">
           <Link
@@ -152,6 +149,13 @@ function DashboardPage({ user }: DashboardPageProps) {
             to="/weight"
           >
             查看体重记录
+          </Link>
+
+          <Link
+            className="inline-flex rounded-md border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+            to="/foods"
+          >
+            管理食物库
           </Link>
 
           <Link

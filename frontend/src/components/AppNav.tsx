@@ -49,6 +49,11 @@ const navItems: NavItem[] = [
     isActive: (pathname) => pathname === '/trends',
   },
   {
+    label: '食物库',
+    to: '/foods',
+    isActive: (pathname) => pathname === '/foods',
+  },
+  {
     label: '数据导出',
     to: '/export',
     isActive: (pathname) => pathname === '/export',

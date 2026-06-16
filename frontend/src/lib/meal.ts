@@ -9,6 +9,7 @@ export type CreateMealRecordInput = {
 }
 
 export type CreateMealItemInput = {
+  food_id?: string | null
   food_name_snapshot: string
   amount_g: number
   calories_snapshot?: number | null
@@ -20,10 +21,7 @@ export type CreateMealItemInput = {
 
 export async function listMyMealRecords(mealDate?: string): Promise<MealRecord[]> {
   const user = await getCurrentUser()
-  let query = supabase
-    .from('meal_records')
-    .select('*')
-    .eq('user_id', user.id)
+  let query = supabase.from('meal_records').select('*').eq('user_id', user.id)
 
   if (mealDate) {
     query = query.eq('meal_date', mealDate)
@@ -118,7 +116,7 @@ export async function createMealItem(
     .insert({
       user_id: user.id,
       meal_record_id: mealRecordId,
-      food_id: null,
+      food_id: input.food_id ?? null,
       food_name_snapshot: foodName,
       amount_g: input.amount_g,
       calories_snapshot: input.calories_snapshot ?? null,
