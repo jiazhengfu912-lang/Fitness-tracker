@@ -269,6 +269,11 @@ alter table public.foods enable row level security;
 alter table public.meal_records enable row level security;
 alter table public.meal_items enable row level security;
 
+-- RLS policy convention:
+-- profiles is isolated by id = auth.uid().
+-- All other business tables are isolated by user_id = auth.uid().
+-- Each table has separate select, insert, update, and delete policies.
+
 drop policy if exists profiles_select_own on public.profiles;
 create policy profiles_select_own
 on public.profiles
