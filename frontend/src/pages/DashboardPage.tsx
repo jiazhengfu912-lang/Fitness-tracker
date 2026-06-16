@@ -1,16 +1,71 @@
 import type { User } from '@supabase/supabase-js'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { ensureMyPreferences, ensureMyProfile } from '../lib/profile'
 import { supabase } from '../lib/supabase'
 
 type DashboardPageProps = {
   user: User
 }
 
+type InitializationStatus = 'loading' | 'ready' | 'error'
+
+function getInitializationStatusText(status: InitializationStatus) {
+  if (status === 'ready') {
+    return '已初始化'
+  }
+
+  if (status === 'error') {
+    return '初始化失败'
+  }
+
+  return '初始化中'
+}
+
 function DashboardPage({ user }: DashboardPageProps) {
   const navigate = useNavigate()
   const [errorMessage, setErrorMessage] = useState('')
+  const [profileStatus, setProfileStatus] = useState<InitializationStatus>('loading')
+  const [preferencesStatus, setPreferencesStatus] = useState<InitializationStatus>('loading')
   const [isSigningOut, setIsSigningOut] = useState(false)
+
+  useEffect(() => {
+    let isMounted = true
+
+    async function initializeUserData() {
+      setErrorMessage('')
+      setProfileStatus('loading')
+      setPreferencesStatus('loading')
+
+      try {
+        await ensureMyProfile()
+
+        if (isMounted) {
+          setProfileStatus('ready')
+        }
+
+        await ensureMyPreferences()
+
+        if (isMounted) {
+          setPreferencesStatus('ready')
+        }
+      } catch (error) {
+        if (!isMounted) {
+          return
+        }
+
+        setProfileStatus('error')
+        setPreferencesStatus('error')
+        setErrorMessage(error instanceof Error ? error.message : '初始化用户数据失败')
+      }
+    }
+
+    initializeUserData()
+
+    return () => {
+      isMounted = false
+    }
+  }, [user.id])
 
   async function handleSignOut() {
     setErrorMessage('')
@@ -36,6 +91,17 @@ function DashboardPage({ user }: DashboardPageProps) {
           <h1 className="mt-4 text-3xl font-semibold tracking-tight">仪表盘</h1>
           <p className="mt-3 text-sm text-slate-600">当前登录用户邮箱：</p>
           <p className="mt-1 text-base font-medium text-slate-900">{user.email ?? '未提供邮箱'}</p>
+
+          <div className="mt-6 divide-y divide-slate-200 border-y border-slate-200 text-sm text-slate-700">
+            <div className="flex items-center justify-between gap-4 py-3">
+              <p className="font-medium text-slate-900">Profile 初始化状态</p>
+              <p>{getInitializationStatusText(profileStatus)}</p>
+            </div>
+            <div className="flex items-center justify-between gap-4 py-3">
+              <p className="font-medium text-slate-900">Preferences 初始化状态</p>
+              <p>{getInitializationStatusText(preferencesStatus)}</p>
+            </div>
+          </div>
 
           {errorMessage ? <p className="mt-4 text-sm text-red-600">{errorMessage}</p> : null}
 
