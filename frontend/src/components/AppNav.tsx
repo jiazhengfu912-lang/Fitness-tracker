@@ -19,6 +19,11 @@ const navItems: NavItem[] = [
       pathname === '/today' || pathname.startsWith('/workouts/') || pathname.startsWith('/meals/'),
   },
   {
+    label: '体重记录',
+    to: '/weight',
+    isActive: (pathname) => pathname === '/weight',
+  },
+  {
     label: '历史记录',
     to: '/history',
     isActive: (pathname) => pathname === '/history',

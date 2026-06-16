@@ -9,6 +9,7 @@ import MealRecordPage from '../pages/MealRecordPage'
 import RegisterPage from '../pages/RegisterPage'
 import StatsPage from '../pages/StatsPage'
 import TodayPage from '../pages/TodayPage'
+import WeightPage from '../pages/WeightPage'
 import WorkoutSessionPage from '../pages/WorkoutSessionPage'
 import { supabase } from '../lib/supabase'
 
@@ -75,6 +76,10 @@ function AppRoutes() {
         <Route
           element={session ? <AppLayout userEmail={session.user.email}><HistoryPage /></AppLayout> : <Navigate replace to="/login" />}
           path="/history"
+        />
+        <Route
+          element={session ? <AppLayout userEmail={session.user.email}><WeightPage /></AppLayout> : <Navigate replace to="/login" />}
+          path="/weight"
         />
         <Route
           element={session ? <AppLayout userEmail={session.user.email}><MealRecordPage /></AppLayout> : <Navigate replace to="/login" />}

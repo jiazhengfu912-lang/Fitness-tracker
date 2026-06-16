@@ -122,6 +122,13 @@ function DashboardPage({ user }: DashboardPageProps) {
             >
               查看历史记录
             </Link>
+
+            <Link
+              className="inline-flex rounded-md border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+              to="/weight"
+            >
+              查看体重记录
+            </Link>
           </div>
         </div>
       </section>
