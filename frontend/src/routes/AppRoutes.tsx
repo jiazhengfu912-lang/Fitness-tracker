@@ -14,6 +14,7 @@ import StatsPage from '../pages/StatsPage'
 import TemplateDetailPage from '../pages/TemplateDetailPage'
 import TemplatesPage from '../pages/TemplatesPage'
 import TodayPage from '../pages/TodayPage'
+import TrendsPage from '../pages/TrendsPage'
 import WeightPage from '../pages/WeightPage'
 import WorkoutSessionPage from '../pages/WorkoutSessionPage'
 
@@ -128,6 +129,18 @@ function AppRoutes() {
             )
           }
           path="/stats"
+        />
+        <Route
+          element={
+            session ? (
+              <AppLayout userEmail={session.user.email}>
+                <TrendsPage />
+              </AppLayout>
+            ) : (
+              <Navigate replace to="/login" />
+            )
+          }
+          path="/trends"
         />
         <Route
           element={

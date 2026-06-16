@@ -44,6 +44,11 @@ const navItems: NavItem[] = [
     isActive: (pathname) => pathname === '/stats',
   },
   {
+    label: '趋势图表',
+    to: '/trends',
+    isActive: (pathname) => pathname === '/trends',
+  },
+  {
     label: '数据导出',
     to: '/export',
     isActive: (pathname) => pathname === '/export',

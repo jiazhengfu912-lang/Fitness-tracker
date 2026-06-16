@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { getBasicStats, getDateRange } from '../lib/stats'
 import type { BasicStats, StatsDays } from '../lib/stats'
 
@@ -111,44 +112,58 @@ function StatsPage() {
 
   return (
     <>
-        <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="text-sm font-medium text-emerald-700">Fitness Tracker MVP</p>
-            <h1 className="mt-2 text-3xl font-semibold tracking-tight">基础统计</h1>
-            <p className="mt-2 text-sm text-slate-600">
-              统计范围：{dateRange.startDate} 至 {dateRange.endDate}
-            </p>
-          </div>
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p className="text-sm font-medium text-emerald-700">Fitness Tracker MVP</p>
+          <h1 className="mt-2 text-3xl font-semibold tracking-tight">基础统计</h1>
+          <p className="mt-2 text-sm text-slate-600">
+            统计范围：{dateRange.startDate} 至 {dateRange.endDate}
+          </p>
         </div>
+        <Link
+          className="inline-flex items-center justify-center rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-white"
+          to="/trends"
+        >
+          查看趋势图表
+        </Link>
+      </div>
 
-        <section className="mb-5 rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
-          <p className="text-sm font-medium text-slate-700">统计范围选择</p>
-          <div className="mt-3 flex flex-wrap gap-2">
-            {rangeOptions.map((option) => (
-              <button
-                className={`rounded-md px-4 py-2 text-sm font-semibold ${
-                  days === option
-                    ? 'bg-slate-900 text-white'
-                    : 'border border-slate-300 bg-white text-slate-700 hover:bg-slate-50'
-                }`}
-                key={option}
-                onClick={() => setDays(option)}
-                type="button"
-              >
-                最近 {option} 天
-              </button>
-            ))}
-          </div>
-        </section>
-
-        {isLoading ? <p className="mb-4 rounded-md bg-slate-100 px-4 py-3 text-sm text-slate-700">统计加载中...</p> : null}
-        {errorMessage ? <p className="mb-4 rounded-md bg-red-50 px-4 py-3 text-sm text-red-700">{errorMessage}</p> : null}
-
-        <div className="grid gap-5">
-          <StatCard items={buildStrengthItems(stats)} title="力量训练统计" />
-          <StatCard items={buildCardioItems(stats)} title="有氧统计" />
-          <StatCard items={buildMealItems(stats)} title="饮食统计" />
+      <section className="mb-5 rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+        <p className="text-sm font-medium text-slate-700">统计范围选择</p>
+        <div className="mt-3 flex flex-wrap gap-2">
+          {rangeOptions.map((option) => (
+            <button
+              className={`rounded-md px-4 py-2 text-sm font-semibold ${
+                days === option
+                  ? 'bg-slate-900 text-white'
+                  : 'border border-slate-300 bg-white text-slate-700 hover:bg-slate-50'
+              }`}
+              key={option}
+              onClick={() => setDays(option)}
+              type="button"
+            >
+              最近 {option} 天
+            </button>
+          ))}
         </div>
+      </section>
+
+      {isLoading ? (
+        <p className="mb-4 rounded-md bg-slate-100 px-4 py-3 text-sm text-slate-700">
+          统计加载中...
+        </p>
+      ) : null}
+      {errorMessage ? (
+        <p className="mb-4 rounded-md bg-red-50 px-4 py-3 text-sm text-red-700">
+          {errorMessage}
+        </p>
+      ) : null}
+
+      <div className="grid gap-5">
+        <StatCard items={buildStrengthItems(stats)} title="力量训练统计" />
+        <StatCard items={buildCardioItems(stats)} title="有氧统计" />
+        <StatCard items={buildMealItems(stats)} title="饮食统计" />
+      </div>
     </>
   )
 }
