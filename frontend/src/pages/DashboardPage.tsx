@@ -128,6 +128,13 @@ function DashboardPage({ user }: DashboardPageProps) {
             进入今日记录
           </Link>
 
+          <Link
+            className="ml-3 mt-6 inline-flex rounded-md border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+            to="/stats"
+          >
+            查看统计
+          </Link>
+
           <button
             className="ml-3 mt-6 rounded-md bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-400"
             disabled={isSigningOut}

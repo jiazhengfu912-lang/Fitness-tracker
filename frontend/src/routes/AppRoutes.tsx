@@ -5,6 +5,7 @@ import DashboardPage from '../pages/DashboardPage'
 import LoginPage from '../pages/LoginPage'
 import MealRecordPage from '../pages/MealRecordPage'
 import RegisterPage from '../pages/RegisterPage'
+import StatsPage from '../pages/StatsPage'
 import TodayPage from '../pages/TodayPage'
 import WorkoutSessionPage from '../pages/WorkoutSessionPage'
 import { supabase } from '../lib/supabase'
@@ -54,6 +55,7 @@ function AppRoutes() {
           path="/"
         />
         <Route element={session ? <TodayPage /> : <Navigate replace to="/login" />} path="/today" />
+        <Route element={session ? <StatsPage /> : <Navigate replace to="/login" />} path="/stats" />
         <Route element={session ? <MealRecordPage /> : <Navigate replace to="/login" />} path="/meals/:mealRecordId" />
         <Route element={session ? <WorkoutSessionPage /> : <Navigate replace to="/login" />} path="/workouts/:sessionId" />
         <Route element={session ? <Navigate replace to="/" /> : <LoginPage />} path="/login" />
