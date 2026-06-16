@@ -2,6 +2,7 @@ import type { Session } from '@supabase/supabase-js'
 import { useEffect, useState } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import DashboardPage from '../pages/DashboardPage'
+import HistoryPage from '../pages/HistoryPage'
 import LoginPage from '../pages/LoginPage'
 import MealRecordPage from '../pages/MealRecordPage'
 import RegisterPage from '../pages/RegisterPage'
@@ -56,6 +57,7 @@ function AppRoutes() {
         />
         <Route element={session ? <TodayPage /> : <Navigate replace to="/login" />} path="/today" />
         <Route element={session ? <StatsPage /> : <Navigate replace to="/login" />} path="/stats" />
+        <Route element={session ? <HistoryPage /> : <Navigate replace to="/login" />} path="/history" />
         <Route element={session ? <MealRecordPage /> : <Navigate replace to="/login" />} path="/meals/:mealRecordId" />
         <Route element={session ? <WorkoutSessionPage /> : <Navigate replace to="/login" />} path="/workouts/:sessionId" />
         <Route element={session ? <Navigate replace to="/" /> : <LoginPage />} path="/login" />

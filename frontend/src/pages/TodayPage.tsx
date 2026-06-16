@@ -247,6 +247,9 @@ function TodayPage() {
             <Link className="text-sm font-medium text-slate-700 hover:text-slate-950" to="/stats">
               查看统计
             </Link>
+            <Link className="text-sm font-medium text-slate-700 hover:text-slate-950" to="/history">
+              查看历史记录
+            </Link>
             <Link className="text-sm font-medium text-slate-700 hover:text-slate-950" to="/">
               返回仪表盘
             </Link>

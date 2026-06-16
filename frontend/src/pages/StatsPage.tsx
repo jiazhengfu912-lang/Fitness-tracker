@@ -134,6 +134,12 @@ function StatsPage() {
             >
               返回今日记录
             </Link>
+            <Link
+              className="rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-white"
+              to="/history"
+            >
+              查看历史记录
+            </Link>
           </div>
         </div>
 
