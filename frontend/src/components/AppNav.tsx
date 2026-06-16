@@ -24,6 +24,11 @@ const navItems: NavItem[] = [
     isActive: (pathname) => pathname === '/templates' || pathname.startsWith('/templates/'),
   },
   {
+    label: '目标管理',
+    to: '/goals',
+    isActive: (pathname) => pathname === '/goals',
+  },
+  {
     label: '体重记录',
     to: '/weight',
     isActive: (pathname) => pathname === '/weight',
