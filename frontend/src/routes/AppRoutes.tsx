@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import DashboardPage from '../pages/DashboardPage'
 import LoginPage from '../pages/LoginPage'
+import MealRecordPage from '../pages/MealRecordPage'
 import RegisterPage from '../pages/RegisterPage'
 import TodayPage from '../pages/TodayPage'
 import WorkoutSessionPage from '../pages/WorkoutSessionPage'
@@ -53,6 +54,7 @@ function AppRoutes() {
           path="/"
         />
         <Route element={session ? <TodayPage /> : <Navigate replace to="/login" />} path="/today" />
+        <Route element={session ? <MealRecordPage /> : <Navigate replace to="/login" />} path="/meals/:mealRecordId" />
         <Route element={session ? <WorkoutSessionPage /> : <Navigate replace to="/login" />} path="/workouts/:sessionId" />
         <Route element={session ? <Navigate replace to="/" /> : <LoginPage />} path="/login" />
         <Route element={session ? <Navigate replace to="/" /> : <RegisterPage />} path="/register" />

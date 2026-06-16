@@ -419,14 +419,22 @@ function TodayPage() {
                       <p className="font-medium">{record.meal_type}</p>
                       <p className="mt-1 text-sm text-slate-600">备注：{getOptionalText(record.notes, '无')}</p>
                     </div>
-                    <button
-                      className="rounded-md border border-red-200 px-3 py-1 text-sm font-medium text-red-700 hover:bg-red-50 disabled:cursor-not-allowed disabled:text-red-300"
-                      disabled={isSubmitting}
-                      onClick={() => handleDeleteMealRecord(record.id)}
-                      type="button"
-                    >
-                      删除
-                    </button>
+                    <div className="flex shrink-0 items-center gap-2">
+                      <Link
+                        className="rounded-md border border-slate-200 px-3 py-1 text-sm font-medium text-slate-700 hover:bg-slate-50"
+                        to={`/meals/${record.id}`}
+                      >
+                        进入食物明细
+                      </Link>
+                      <button
+                        className="rounded-md border border-red-200 px-3 py-1 text-sm font-medium text-red-700 hover:bg-red-50 disabled:cursor-not-allowed disabled:text-red-300"
+                        disabled={isSubmitting}
+                        onClick={() => handleDeleteMealRecord(record.id)}
+                        type="button"
+                      >
+                        删除
+                      </button>
+                    </div>
                   </li>
                 ))}
               </ul>
