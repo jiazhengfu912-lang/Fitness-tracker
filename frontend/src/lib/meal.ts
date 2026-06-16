@@ -8,12 +8,18 @@ export type CreateMealRecordInput = {
   notes?: string | null
 }
 
-export async function listMyMealRecords(): Promise<MealRecord[]> {
+export async function listMyMealRecords(mealDate?: string): Promise<MealRecord[]> {
   const user = await getCurrentUser()
-  const { data, error } = await supabase
+  let query = supabase
     .from('meal_records')
     .select('*')
     .eq('user_id', user.id)
+
+  if (mealDate) {
+    query = query.eq('meal_date', mealDate)
+  }
+
+  const { data, error } = await query
     .order('meal_date', { ascending: false })
     .order('created_at', { ascending: false })
 

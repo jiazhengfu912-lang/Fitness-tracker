@@ -10,12 +10,18 @@ export type CreateWorkoutSessionInput = {
   notes?: string | null
 }
 
-export async function listMyWorkoutSessions(): Promise<StrengthWorkoutSession[]> {
+export async function listMyWorkoutSessions(workoutDate?: string): Promise<StrengthWorkoutSession[]> {
   const user = await getCurrentUser()
-  const { data, error } = await supabase
+  let query = supabase
     .from('strength_workout_sessions')
     .select('*')
     .eq('user_id', user.id)
+
+  if (workoutDate) {
+    query = query.eq('workout_date', workoutDate)
+  }
+
+  const { data, error } = await query
     .order('workout_date', { ascending: false })
     .order('created_at', { ascending: false })
 

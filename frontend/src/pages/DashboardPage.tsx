@@ -1,6 +1,6 @@
 import type { User } from '@supabase/supabase-js'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ensureMyPreferences, ensureMyProfile } from '../lib/profile'
 import { supabase } from '../lib/supabase'
 
@@ -121,8 +121,15 @@ function DashboardPage({ user }: DashboardPageProps) {
           ) : null}
           {errorMessage ? <p className="mt-4 text-sm text-red-600">{errorMessage}</p> : null}
 
+          <Link
+            className="mt-6 inline-flex rounded-md bg-emerald-700 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-600"
+            to="/today"
+          >
+            进入今日记录
+          </Link>
+
           <button
-            className="mt-6 rounded-md bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-400"
+            className="ml-3 mt-6 rounded-md bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-400"
             disabled={isSigningOut}
             onClick={handleSignOut}
             type="button"

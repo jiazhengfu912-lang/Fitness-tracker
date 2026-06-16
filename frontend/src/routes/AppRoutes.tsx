@@ -4,6 +4,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import DashboardPage from '../pages/DashboardPage'
 import LoginPage from '../pages/LoginPage'
 import RegisterPage from '../pages/RegisterPage'
+import TodayPage from '../pages/TodayPage'
 import { supabase } from '../lib/supabase'
 
 function AppRoutes() {
@@ -50,6 +51,7 @@ function AppRoutes() {
           element={session ? <DashboardPage user={session.user} /> : <Navigate replace to="/login" />}
           path="/"
         />
+        <Route element={session ? <TodayPage /> : <Navigate replace to="/login" />} path="/today" />
         <Route element={session ? <Navigate replace to="/" /> : <LoginPage />} path="/login" />
         <Route element={session ? <Navigate replace to="/" /> : <RegisterPage />} path="/register" />
       </Routes>

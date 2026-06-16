@@ -12,12 +12,18 @@ export type CreateCardioRecordInput = {
   notes?: string | null
 }
 
-export async function listMyCardioRecords(): Promise<CardioRecord[]> {
+export async function listMyCardioRecords(cardioDate?: string): Promise<CardioRecord[]> {
   const user = await getCurrentUser()
-  const { data, error } = await supabase
+  let query = supabase
     .from('cardio_records')
     .select('*')
     .eq('user_id', user.id)
+
+  if (cardioDate) {
+    query = query.eq('cardio_date', cardioDate)
+  }
+
+  const { data, error } = await query
     .order('cardio_date', { ascending: false })
     .order('created_at', { ascending: false })
 
