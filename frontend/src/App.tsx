@@ -1,9 +1,7 @@
+import AppRoutes from './routes/AppRoutes'
+
 function App() {
-  return (
-    <main>
-      <h1>Fitness Tracker MVP</h1>
-    </main>
-  )
+  return <AppRoutes />
 }
 
 export default App
