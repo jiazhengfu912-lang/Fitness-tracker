@@ -6,6 +6,7 @@ import {
   deleteCardioRecord,
   listMyCardioRecords,
 } from '../lib/cardio'
+import type { CardioIntensity } from '../lib/cardio'
 import {
   createMealRecord,
   deleteMealRecord,
@@ -45,6 +46,9 @@ function TodayPage() {
   const [activityType, setActivityType] = useState('')
   const [durationMinutes, setDurationMinutes] = useState('')
   const [distanceKm, setDistanceKm] = useState('')
+  const [caloriesBurned, setCaloriesBurned] = useState('')
+  const [intensity, setIntensity] = useState<CardioIntensity | ''>('')
+  const [cardioNotes, setCardioNotes] = useState('')
   const [mealType, setMealType] = useState<MealType>('breakfast')
   const [mealNotes, setMealNotes] = useState('')
   const [isLoading, setIsLoading] = useState(true)
@@ -108,6 +112,7 @@ function TodayPage() {
 
     const parsedDuration = Number(durationMinutes)
     const parsedDistance = distanceKm.trim() ? Number(distanceKm) : null
+    const parsedCalories = caloriesBurned.trim() ? Number(caloriesBurned) : null
 
     if (!activityType.trim()) {
       setErrorMessage('请填写有氧类型')
@@ -127,16 +132,28 @@ function TodayPage() {
       return
     }
 
+    if (parsedCalories !== null && (!Number.isFinite(parsedCalories) || parsedCalories < 0)) {
+      setErrorMessage('消耗热量不能小于 0')
+      setIsSubmitting(false)
+      return
+    }
+
     try {
       await createCardioRecord({
         cardio_date: today,
         activity_type: activityType.trim(),
         duration_minutes: parsedDuration,
         distance_km: parsedDistance,
+        calories_burned: parsedCalories,
+        intensity: intensity || null,
+        notes: cardioNotes.trim() || null,
       })
       setActivityType('')
       setDurationMinutes('')
       setDistanceKm('')
+      setCaloriesBurned('')
+      setIntensity('')
+      setCardioNotes('')
       setMessage('今日有氧记录已创建')
       await loadTodayRecords()
     } catch (error) {
@@ -337,6 +354,40 @@ function TodayPage() {
                   value={distanceKm}
                 />
               </label>
+              <label className="grid gap-1 text-sm">
+                <span className="font-medium text-slate-700">消耗热量（可选）</span>
+                <input
+                  className="rounded-md border border-slate-300 px-3 py-2"
+                  min="0"
+                  onChange={(event) => setCaloriesBurned(event.target.value)}
+                  step="0.1"
+                  type="number"
+                  value={caloriesBurned}
+                />
+              </label>
+              <label className="grid gap-1 text-sm">
+                <span className="font-medium text-slate-700">强度（可选）</span>
+                <select
+                  className="rounded-md border border-slate-300 px-3 py-2"
+                  onChange={(event) => setIntensity(event.target.value as CardioIntensity | '')}
+                  value={intensity}
+                >
+                  <option value="">未选择</option>
+                  <option value="low">low</option>
+                  <option value="medium">medium</option>
+                  <option value="high">high</option>
+                </select>
+              </label>
+              <label className="grid gap-1 text-sm">
+                <span className="font-medium text-slate-700">备注（可选）</span>
+                <input
+                  className="rounded-md border border-slate-300 px-3 py-2"
+                  onChange={(event) => setCardioNotes(event.target.value)}
+                  placeholder="例如 Zone 2"
+                  type="text"
+                  value={cardioNotes}
+                />
+              </label>
               <button
                 className="rounded-md bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-400 sm:col-span-3"
                 disabled={isSubmitting}
@@ -356,7 +407,10 @@ function TodayPage() {
                       <p className="mt-1 text-sm text-slate-600">
                         {record.duration_minutes} 分钟
                         {record.distance_km !== null ? `，${record.distance_km} km` : ''}
+                        {record.calories_burned !== null ? `，${record.calories_burned} kcal` : ''}
+                        {record.intensity ? `，强度 ${record.intensity}` : ''}
                       </p>
+                      {record.notes ? <p className="mt-1 text-sm text-slate-600">备注：{record.notes}</p> : null}
                     </div>
                     <button
                       className="rounded-md border border-red-200 px-3 py-1 text-sm font-medium text-red-700 hover:bg-red-50 disabled:cursor-not-allowed disabled:text-red-300"
