@@ -9,6 +9,8 @@ import LoginPage from '../pages/LoginPage'
 import MealRecordPage from '../pages/MealRecordPage'
 import RegisterPage from '../pages/RegisterPage'
 import StatsPage from '../pages/StatsPage'
+import TemplateDetailPage from '../pages/TemplateDetailPage'
+import TemplatesPage from '../pages/TemplatesPage'
 import TodayPage from '../pages/TodayPage'
 import WeightPage from '../pages/WeightPage'
 import WorkoutSessionPage from '../pages/WorkoutSessionPage'
@@ -85,6 +87,14 @@ function AppRoutes() {
         <Route
           element={session ? <AppLayout userEmail={session.user.email}><ExportPage /></AppLayout> : <Navigate replace to="/login" />}
           path="/export"
+        />
+        <Route
+          element={session ? <AppLayout userEmail={session.user.email}><TemplatesPage /></AppLayout> : <Navigate replace to="/login" />}
+          path="/templates"
+        />
+        <Route
+          element={session ? <AppLayout userEmail={session.user.email}><TemplateDetailPage /></AppLayout> : <Navigate replace to="/login" />}
+          path="/templates/:templateId"
         />
         <Route
           element={session ? <AppLayout userEmail={session.user.email}><MealRecordPage /></AppLayout> : <Navigate replace to="/login" />}
