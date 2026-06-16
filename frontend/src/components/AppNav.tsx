@@ -33,6 +33,11 @@ const navItems: NavItem[] = [
     to: '/stats',
     isActive: (pathname) => pathname === '/stats',
   },
+  {
+    label: '数据导出',
+    to: '/export',
+    isActive: (pathname) => pathname === '/export',
+  },
 ]
 
 function AppNav() {

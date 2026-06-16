@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import AppLayout from '../components/AppLayout'
 import DashboardPage from '../pages/DashboardPage'
+import ExportPage from '../pages/ExportPage'
 import HistoryPage from '../pages/HistoryPage'
 import LoginPage from '../pages/LoginPage'
 import MealRecordPage from '../pages/MealRecordPage'
@@ -80,6 +81,10 @@ function AppRoutes() {
         <Route
           element={session ? <AppLayout userEmail={session.user.email}><WeightPage /></AppLayout> : <Navigate replace to="/login" />}
           path="/weight"
+        />
+        <Route
+          element={session ? <AppLayout userEmail={session.user.email}><ExportPage /></AppLayout> : <Navigate replace to="/login" />}
+          path="/export"
         />
         <Route
           element={session ? <AppLayout userEmail={session.user.email}><MealRecordPage /></AppLayout> : <Navigate replace to="/login" />}
