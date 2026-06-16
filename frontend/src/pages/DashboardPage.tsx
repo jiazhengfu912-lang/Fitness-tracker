@@ -10,16 +10,20 @@ type DashboardPageProps = {
 
 type InitializationStatus = 'loading' | 'ready' | 'error'
 
-function getInitializationStatusText(status: InitializationStatus) {
+function getInitializationStatusText(label: 'Profile' | 'Preferences', status: InitializationStatus) {
   if (status === 'ready') {
-    return '已初始化'
+    return `${label} 初始化成功`
   }
 
   if (status === 'error') {
-    return '初始化失败'
+    return `${label} 初始化失败`
   }
 
-  return '初始化中'
+  return `${label} 初始化中`
+}
+
+function getErrorMessage(error: unknown) {
+  return error instanceof Error ? error.message : '未知错误'
 }
 
 function DashboardPage({ user }: DashboardPageProps) {
@@ -27,6 +31,8 @@ function DashboardPage({ user }: DashboardPageProps) {
   const [errorMessage, setErrorMessage] = useState('')
   const [profileStatus, setProfileStatus] = useState<InitializationStatus>('loading')
   const [preferencesStatus, setPreferencesStatus] = useState<InitializationStatus>('loading')
+  const [profileErrorMessage, setProfileErrorMessage] = useState('')
+  const [preferencesErrorMessage, setPreferencesErrorMessage] = useState('')
   const [isSigningOut, setIsSigningOut] = useState(false)
 
   useEffect(() => {
@@ -34,6 +40,8 @@ function DashboardPage({ user }: DashboardPageProps) {
 
     async function initializeUserData() {
       setErrorMessage('')
+      setProfileErrorMessage('')
+      setPreferencesErrorMessage('')
       setProfileStatus('loading')
       setPreferencesStatus('loading')
 
@@ -43,20 +51,24 @@ function DashboardPage({ user }: DashboardPageProps) {
         if (isMounted) {
           setProfileStatus('ready')
         }
+      } catch (error) {
+        if (isMounted) {
+          setProfileStatus('error')
+          setProfileErrorMessage(`Profile 初始化失败：${getErrorMessage(error)}`)
+        }
+      }
 
+      try {
         await ensureMyPreferences()
 
         if (isMounted) {
           setPreferencesStatus('ready')
         }
       } catch (error) {
-        if (!isMounted) {
-          return
+        if (isMounted) {
+          setPreferencesStatus('error')
+          setPreferencesErrorMessage(`Preferences 初始化失败：${getErrorMessage(error)}`)
         }
-
-        setProfileStatus('error')
-        setPreferencesStatus('error')
-        setErrorMessage(error instanceof Error ? error.message : '初始化用户数据失败')
       }
     }
 
@@ -95,14 +107,18 @@ function DashboardPage({ user }: DashboardPageProps) {
           <div className="mt-6 divide-y divide-slate-200 border-y border-slate-200 text-sm text-slate-700">
             <div className="flex items-center justify-between gap-4 py-3">
               <p className="font-medium text-slate-900">Profile 初始化状态</p>
-              <p>{getInitializationStatusText(profileStatus)}</p>
+              <p>{getInitializationStatusText('Profile', profileStatus)}</p>
             </div>
             <div className="flex items-center justify-between gap-4 py-3">
               <p className="font-medium text-slate-900">Preferences 初始化状态</p>
-              <p>{getInitializationStatusText(preferencesStatus)}</p>
+              <p>{getInitializationStatusText('Preferences', preferencesStatus)}</p>
             </div>
           </div>
 
+          {profileErrorMessage ? <p className="mt-4 text-sm text-red-600">{profileErrorMessage}</p> : null}
+          {preferencesErrorMessage ? (
+            <p className="mt-2 text-sm text-red-600">{preferencesErrorMessage}</p>
+          ) : null}
           {errorMessage ? <p className="mt-4 text-sm text-red-600">{errorMessage}</p> : null}
 
           <button
